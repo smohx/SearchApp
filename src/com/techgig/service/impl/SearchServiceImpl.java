@@ -29,9 +29,9 @@ public class SearchServiceImpl implements SearchService {
 	@Autowired
 	RAMDirectory ramDir;
 
-	private static final String INDEX_DIR_P = "WebContent\\resources\\file\\luceneindex\\product";
-	private static final String INDEX_DIR_C = "WebContent\\resources\\file\\luceneindex\\classifier";
-	private String modelFile = "WebContent\\resources\\file\\nlp\\cat_train.bin";
+	private static final String INDEX_DIR_P = "/app/WebContent/resources/file/luceneindex/product";
+	private static final String INDEX_DIR_C = "/app/WebContent/resources/file/luceneindex/classifier";
+	private String modelFile = "/app/WebContent/resources/file/nlp/cat_train.bin";
 
 
 	@Override

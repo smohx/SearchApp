@@ -27,7 +27,7 @@ public class CSVReader {
 		List<Product> sourceList = new ArrayList<Product>();
 
 		try {
-			Reader reader = Files.newBufferedReader(Paths.get("WebContent\\resources\\file\\product_data.csv"));
+			Reader reader = Files.newBufferedReader(Paths.get("/app/WebContent/resources/file/product_data.csv"));
 			CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
 					.withFirstRecordAsHeader()
 					.withIgnoreHeaderCase()
@@ -98,7 +98,7 @@ public class CSVReader {
 		List<Classifier> sourceList = new ArrayList<Classifier>();
 
 		try {
-			Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream("WebContent\\resources\\file\\classification_data.csv"),"utf-8"));
+			Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream("/app/WebContent/resources/file/classification_data.csv"),"utf-8"));
 					
 					//Files.newBufferedReader(Paths.get());
 			CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT

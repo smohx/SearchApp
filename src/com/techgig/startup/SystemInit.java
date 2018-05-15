@@ -52,8 +52,8 @@ public class SystemInit implements ApplicationListener<ContextRefreshedEvent> {
 	}*/
 
 
-	private static final String INDEX_DIR_P = "WebContent\\resources\\file\\luceneindex\\product";
-	private static final String INDEX_DIR_C = "WebContent\\resources\\file\\luceneindex\\classifier";
+	private static final String INDEX_DIR_P = "/app/WebContent/resources/file/luceneindex/product";
+	private static final String INDEX_DIR_C = "/app/WebContent/resources/file/luceneindex/classifier";
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -64,10 +64,10 @@ public class SystemInit implements ApplicationListener<ContextRefreshedEvent> {
 				performIndexProduct();
 				performIndexClassifier();
 				
-				String modelFile = "WebContent\\resources\\file\\nlp\\cat_train.bin";
-				String inputFile = "WebContent\\resources\\file\\nlp\\training_data.txt";
-				String modelFileToken = "WebContent\\resources\\file\\nlp\\cat_train_token.bin";
-				String inputFileToken = "WebContent\\resources\\file\\nlp\\token_training_data.txt";
+				String modelFile = "/app/WebContent/resources/file/nlp/cat_train.bin";
+				String inputFile = "/app/WebContent/resources/file/nlp/training_data.txt";
+				String modelFileToken = "/app/WebContent/resources/file/nlp/cat_train_token.bin";
+				String inputFileToken = "/app/WebContent/resources/file/nlp/token_training_data.txt";
 
 				CategoryTrainUtility.trainNERModel(inputFile, modelFile);
 				CategoryTrainUtility.trainTokenizer(inputFileToken, modelFileToken);

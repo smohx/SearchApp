@@ -35,9 +35,9 @@ public class CategoryDetectorUtility {
 
 	private void initNERModel(String modelFile) {
 		try {
-			inputStream = new FileInputStream(modelFile);
-			tokenInputStream = new FileInputStream("WebContent\\resources\\file\\nlp\\cat_train_token.bin");
-			nerModel = new TokenNameFinderModel(inputStream);
+			//inputStream = new FileInputStream(modelFile);
+			tokenInputStream = new FileInputStream("WebContent\\resources\\file\\nlp\\en-token.bin");
+			//nerModel = new TokenNameFinderModel(inputStream);
 			tokenizerModel = new TokenizerModel(tokenInputStream);
 			tokenizer = new TokenizerME(tokenizerModel);
 		} catch (Exception e) {

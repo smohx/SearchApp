@@ -13,14 +13,17 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.RAMDirectory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.techgig.bean.Classifier;
 import com.techgig.bean.Product;
 import com.techgig.util.CSVReader;
 import com.techgig.util.CategoryTrainUtility;
+import com.techgig.util.CategoryUtil;
 
 
 
@@ -54,6 +57,13 @@ public class SystemInit implements ApplicationListener<ContextRefreshedEvent> {
 
 	private static final String INDEX_DIR_P = "WebContent\\resources\\file\\luceneindex\\product";
 	private static final String INDEX_DIR_C = "WebContent\\resources\\file\\luceneindex\\classifier";
+	
+	@Autowired
+	private RAMDirectory productIndex;
+	
+	@Autowired
+	private RAMDirectory classifierIndex;
+	
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -61,25 +71,27 @@ public class SystemInit implements ApplicationListener<ContextRefreshedEvent> {
 		{
 			try 
 			{
-				performIndexProduct();
+				CategoryUtil.initialize();
+				/*performIndexProduct();
 				performIndexClassifier();
 				
 				String modelFile = "WebContent\\resources\\file\\nlp\\cat_train.bin";
 				String inputFile = "WebContent\\resources\\file\\nlp\\training_data.txt";
 				String modelFileToken = "WebContent\\resources\\file\\nlp\\cat_train_token.bin";
-				String inputFileToken = "WebContent\\resources\\file\\nlp\\token_training_data.txt";
+				String inputFileToken = "WebContent\\resources\\file\\nlp\\token_training_data.txt";*/
 
-				CategoryTrainUtility.trainNERModel(inputFile, modelFile);
-				CategoryTrainUtility.trainTokenizer(inputFileToken, modelFileToken);
+				//CategoryTrainUtility.trainNERModel(inputFile, modelFile);
+				//CategoryTrainUtility.trainTokenizer(inputFileToken, modelFileToken);
+
 			} 
-			catch (IOException e) {
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
 	private void performIndexProduct() throws IOException {
-		IndexWriter writer = createWriter(INDEX_DIR_P);
+		IndexWriter writer = createWriter(productIndex);
 		System.out.println("Started Deleting Existing Indexed Product Data");
 		writer.deleteAll();
 		writer.commit();
@@ -134,7 +146,7 @@ public class SystemInit implements ApplicationListener<ContextRefreshedEvent> {
 	}
 
 	private void performIndexClassifier() throws IOException {
-		IndexWriter writer = createWriter(INDEX_DIR_C);
+		IndexWriter writer = createWriter(classifierIndex);
 		System.out.println("Started Deleting Existing Indexed Classifier Data");
 		writer.deleteAll();
 		writer.commit();
@@ -159,11 +171,11 @@ public class SystemInit implements ApplicationListener<ContextRefreshedEvent> {
 		writer.close();
 
 	}
-	private static IndexWriter createWriter(String path) throws IOException
+	private IndexWriter createWriter(RAMDirectory index) throws IOException
 	{
-		FSDirectory dir = FSDirectory.open(Paths.get(path));
+		//FSDirectory dir = FSDirectory.open(Paths.get(path));
 		IndexWriterConfig config = new IndexWriterConfig(new StandardAnalyzer());
-		IndexWriter writer = new IndexWriter(dir, config);
+		IndexWriter writer = new IndexWriter(index, config);
 		return writer;
 	}
 }

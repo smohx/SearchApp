@@ -23,11 +23,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.techgig.service.SearchService;
 import com.techgig.util.CategoryDetectorUtility;
+import com.techgig.util.CategoryUtil;
 
 public class SearchServiceImpl implements SearchService {
 
-	@Autowired
-	RAMDirectory ramDir;
+
 
 	private static final String INDEX_DIR_P = "WebContent\\resources\\file\\luceneindex\\product";
 	private static final String INDEX_DIR_C = "WebContent\\resources\\file\\luceneindex\\classifier";
@@ -38,13 +38,13 @@ public class SearchServiceImpl implements SearchService {
 	public List<String> getSuggestion(String searchQuery)   {
 
 		List <String> result = new ArrayList<String>();
-
+		
 
 
 		String query = searchQuery + "*";
 		try
 		{
-			CategoryDetectorUtility detector = new CategoryDetectorUtility(modelFile);
+			//CategoryDetectorUtility detector = new CategoryDetectorUtility(modelFile);
 
 
 
@@ -67,7 +67,7 @@ public class SearchServiceImpl implements SearchService {
 					}
 				}
 			}
-			detector.getNERCategory(searchQuery);
+			//detector.getNERCategory(searchQuery);
 			for(String s:classMap.keySet()) {
 				if(!s.equals("comparator"))
 				{
@@ -75,7 +75,7 @@ public class SearchServiceImpl implements SearchService {
 				}
 			}
 
-			List<Integer> pricelist = validatePrices(detector.tokenizeNumeric(searchQuery));
+			List<Integer> pricelist = validatePrices(CategoryUtil.tokenizeNumeric(searchQuery));
 
 
 			if(!pricelist.isEmpty())
@@ -136,16 +136,17 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@SuppressWarnings("unused")
-	private static IndexSearcher createSearcherProduct() throws IOException {
-		Directory dir = FSDirectory.open(Paths.get(INDEX_DIR_P));
-		IndexReader reader = DirectoryReader.open(dir);
+	private IndexSearcher createSearcherProduct() throws IOException {
+		//Directory dir = FSDirectory.open(Paths.get(INDEX_DIR_P));
+		
+		IndexReader reader = DirectoryReader.open(CategoryUtil.productIndex);
 		IndexSearcher searcher = new IndexSearcher(reader);
 		return searcher;
 	}
 
-	private static IndexSearcher createSearcherClassification() throws IOException {
-		Directory dir = FSDirectory.open(Paths.get(INDEX_DIR_C));
-		IndexReader reader = DirectoryReader.open(dir);
+	private IndexSearcher createSearcherClassification() throws IOException {
+		//Directory dir = FSDirectory.open(Paths.get(INDEX_DIR_C));
+		IndexReader reader = DirectoryReader.open(CategoryUtil.classifierIndex);
 		IndexSearcher searcher = new IndexSearcher(reader);
 		return searcher;
 	}

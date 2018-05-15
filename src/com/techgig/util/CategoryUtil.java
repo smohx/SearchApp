@@ -175,7 +175,7 @@ public class CategoryUtil {
 		try {
 			//inputStream = new FileInputStream(modelFile);
 			String root = System.getProperty("user.dir");
-			tokenInputStream = new FileInputStream(root+"\\WebContent\\resources\\file\\nlp\\en-token.bin");
+			tokenInputStream = new FileInputStream(root+"/WebContent/resources/file/nlp/en-token.bin");
 			//nerModel = new TokenNameFinderModel(inputStream);
 			tokenizerModel = new TokenizerModel(tokenInputStream);
 			tokenizer = new TokenizerME(tokenizerModel);

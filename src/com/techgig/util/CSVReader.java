@@ -28,7 +28,7 @@ public class CSVReader {
 
 		try {
 			String root = System.getProperty("user.dir");
-			Reader reader = Files.newBufferedReader(Paths.get(root+"\\WebContent\\resources\\file\\product_data.csv"));
+			Reader reader = Files.newBufferedReader(Paths.get(root+"/WebContent/resources/file/product_data.csv"));
 			CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
 					.withFirstRecordAsHeader()
 					.withIgnoreHeaderCase()
@@ -100,7 +100,7 @@ public class CSVReader {
 
 		try {
 			String root = System.getProperty("user.dir");
-			Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(root+"\\WebContent\\resources\\file\\classification_data.csv"),"utf-8"));
+			Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(root+"/WebContent/resources/file/classification_data.csv"),"utf-8"));
 					
 					//Files.newBufferedReader(Paths.get());
 			CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT

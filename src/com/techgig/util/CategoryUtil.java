@@ -70,7 +70,7 @@ public class CategoryUtil {
 			String inputFileToken = "WebContent\\resources\\file\\nlp\\token_training_data.txt";
 
 			//CategoryTrainUtility.trainNERModel(inputFile, modelFile);
-			trainTokenizer(inputFileToken, modelFileToken);
+			//trainTokenizer(inputFileToken, modelFileToken);
 			initNERModel();
 
 		} 

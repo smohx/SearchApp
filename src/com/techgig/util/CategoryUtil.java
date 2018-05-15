@@ -50,6 +50,8 @@ public class CategoryUtil {
 	public static RAMDirectory productIndex = new RAMDirectory();
 
 	public static RAMDirectory classifierIndex = new RAMDirectory();
+	
+	static final ClassLoader loader = CategoryUtil.class.getClassLoader();
 
 	public static InputStream tokenInputStream;
 	public static TokenizerModel tokenizerModel;
@@ -172,7 +174,8 @@ public class CategoryUtil {
 	public static void initNERModel() {
 		try {
 			//inputStream = new FileInputStream(modelFile);
-			tokenInputStream = new FileInputStream("WebContent\\resources\\file\\nlp\\en-token.bin");
+			String root = System.getProperty("user.dir");
+			tokenInputStream = new FileInputStream(root+"\\WebContent\\resources\\file\\nlp\\en-token.bin");
 			//nerModel = new TokenNameFinderModel(inputStream);
 			tokenizerModel = new TokenizerModel(tokenInputStream);
 			tokenizer = new TokenizerME(tokenizerModel);
